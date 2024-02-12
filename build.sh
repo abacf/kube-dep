@@ -20,4 +20,5 @@ jsonnet -J vendor -m manifests "${1-example.jsonnet}" | xargs -I{} sh -c 'cat {}
 # Make sure to remove json files
 find manifests -type f ! -name '*.yaml' -delete
 rm -f kustomization
-
+# Delete networkPolicy files to remove firewall rules
+find manifests -type f -iname '*networkPolicy*' -delete

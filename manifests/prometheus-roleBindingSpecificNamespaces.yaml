@@ -18,7 +18,7 @@ items:
   subjects:
   - kind: ServiceAccount
     name: prometheus-k8s
-    namespace: monitoring
+    namespace: default
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: RoleBinding
   metadata:
@@ -37,26 +37,7 @@ items:
   subjects:
   - kind: ServiceAccount
     name: prometheus-k8s
-    namespace: monitoring
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    labels:
-      app.kubernetes.io/component: prometheus
-      app.kubernetes.io/instance: k8s
-      app.kubernetes.io/name: prometheus
-      app.kubernetes.io/part-of: kube-prometheus
-      app.kubernetes.io/version: 2.49.1
-    name: prometheus-k8s
-    namespace: monitoring
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: Role
-    name: prometheus-k8s
-  subjects:
-  - kind: ServiceAccount
-    name: prometheus-k8s
-    namespace: monitoring
+    namespace: default
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: RoleBinding
   metadata:
@@ -75,7 +56,7 @@ items:
   subjects:
   - kind: ServiceAccount
     name: prometheus-k8s
-    namespace: monitoring
+    namespace: default
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: RoleBinding
   metadata:
@@ -94,7 +75,7 @@ items:
   subjects:
   - kind: ServiceAccount
     name: prometheus-k8s
-    namespace: monitoring
+    namespace: default
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: RoleBinding
   metadata:
@@ -113,5 +94,5 @@ items:
   subjects:
   - kind: ServiceAccount
     name: prometheus-k8s
-    namespace: monitoring
+    namespace: default
 kind: RoleBindingList

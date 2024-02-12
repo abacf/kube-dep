@@ -9,7 +9,7 @@ metadata:
     prometheus: k8s
     role: alert-rules
   name: node-exporter-rules
-  namespace: monitoring
+  namespace: default
 spec:
   groups:
   - name: node-exporter

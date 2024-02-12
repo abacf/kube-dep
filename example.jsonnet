@@ -10,11 +10,8 @@ local kp =
   // (import 'kube-prometheus/addons/pyrra.libsonnet') +
   {
     values+:: {
-      common+: {
-        namespace: 'monitoring',
-      },
       prometheus+:: {
-        namespaces: ["default", "kube-system", "monitoring", "dev", "prod", "staging"],
+        namespaces: ["default", "kube-system", "dev", "prod", "staging"],
       },
     },
   };
