@@ -9,13 +9,21 @@ metadata:
     app.kubernetes.io/version: 2.49.1
   name: prometheus-k8s
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - nodes/metrics
-  verbs:
-  - get
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/metrics
+    verbs:
+      - get
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get
+  - apiGroups: [""]
+    resources:
+      - pods
+      - nodes/metrics
+      - endpoints
+      - services
+      - events
+    verbs: ["list", "get", "watch"]
