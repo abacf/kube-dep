@@ -12,10 +12,10 @@ metadata:
 spec:
   alerting:
     alertmanagers:
-    - apiVersion: v2
-      name: alertmanager-main
-      namespace: default
-      port: web
+      - apiVersion: v2
+        name: alertmanager-main
+        namespace: default
+        port: web
   enableFeatures: []
   externalLabels: {}
   image: quay.io/prometheus/prometheus:v2.49.1
@@ -37,7 +37,9 @@ spec:
     requests:
       memory: 400Mi
   ruleNamespaceSelector: {}
-  ruleSelector: {}
+  ruleSelector:
+    matchLabels:
+      alert: enabled
   scrapeConfigNamespaceSelector: {}
   scrapeConfigSelector: {}
   securityContext:
