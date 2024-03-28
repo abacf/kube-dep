@@ -6,19 +6,19 @@ metadata:
     app.kubernetes.io/instance: k8s
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: kube-prometheus
-    app.kubernetes.io/version: 2.49.1
+    app.kubernetes.io/version: 2.50.1
   name: k8s
   namespace: default
 spec:
   alerting:
     alertmanagers:
-      - apiVersion: v2
-        name: alertmanager-main
-        namespace: default
-        port: web
+    - apiVersion: v2
+      name: alertmanager-main
+      namespace: default
+      port: web
   enableFeatures: []
   externalLabels: {}
-  image: quay.io/prometheus/prometheus:v2.49.1
+  image: quay.io/prometheus/prometheus:v2.50.1
   nodeSelector:
     kubernetes.io/os: linux
   podMetadata:
@@ -27,7 +27,7 @@ spec:
       app.kubernetes.io/instance: k8s
       app.kubernetes.io/name: prometheus
       app.kubernetes.io/part-of: kube-prometheus
-      app.kubernetes.io/version: 2.49.1
+      app.kubernetes.io/version: 2.50.1
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
   probeNamespaceSelector: {}
@@ -37,9 +37,7 @@ spec:
     requests:
       memory: 400Mi
   ruleNamespaceSelector: {}
-  ruleSelector:
-    matchLabels:
-      alert: enabled
+  ruleSelector: {}
   scrapeConfigNamespaceSelector: {}
   scrapeConfigSelector: {}
   securityContext:
@@ -49,4 +47,4 @@ spec:
   serviceAccountName: prometheus-k8s
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
-  version: 2.49.1
+  version: 2.50.1
