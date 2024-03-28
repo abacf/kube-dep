@@ -11,7 +11,7 @@ local kp =
   {
     values+:: {
       prometheus+:: {
-        namespaces: ["default", "kube-system", "dev", "prod", "staging"],
+        namespaces: ["default", "kube-system"],
       },
     },
   };
