@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-{{ args.queue_name }}-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: redis-{{ args.queue_name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis-{{ args.queue_name }}
+    spec:
+      containers:
+        - name: redis
+          image: "{{ images.get_image('redis') }}"
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: redis-{{ args.queue_name }}-persistent-storage
+              mountPath: /data
+        - name: redis-exporter
+          image: "{{ images.get_image('oliver006/redis_exporter') }}"
+          args:
+            - "--redis.addr=redis-{{ args.queue_name }}-service"
+          ports:
+            - containerPort: 9121
+      volumes:
+        - name: redis-{{ args.queue_name }}-persistent-storage
+          persistentVolumeClaim:
+            claimName: redis-{{ args.queue_name }}-pv-claim

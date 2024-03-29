@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-{{ args.queue_name }}-deployment
+spec:
+  selector:
+    matchLabels:
+      app: app-{{ args.queue_name }}
+      queue: {{ args.queue_name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: app-{{ args.queue_name }}
+        queue: {{ args.queue_name }}
+    spec:
+      containers:
+        - name: app-{{ args.queue_name }}
+          image: {{ images.get_image('app') }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: REDIS_HOST
+              value: "redis-{{ args.queue_name }}-service"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: QUEUE_NAME
+              value: "{{ args.queue_name }}"
+            - name: ENV
+              value: "{{ args.environnment }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-{{ args.queue_name }}-service
+  labels:
+    app: app-{{ args.queue_name }}
+    queue: {{ args.queue_name }}
+spec:
+  selector:
+    app: app-{{ args.queue_name }}
+    queue: {{ args.queue_name }}
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8000
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: app-{{ args.queue_name }}-ingress
+
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ args.queue_name }}.{{ args.base_domain }}`)
+      kind: Rule
+      services:
+        - name: app-{{ args.queue_name }}-service
+          port: 8000
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app-{{ args.queue_name }}-metrics
+spec:
+  selector:
+    matchLabels:
+      app: app-{{ args.queue_name }}
+      queue: {{ args.queue_name }}
+  namespaceSelector:
+    any: true
+  endpoints:
+    - port: web
+      path: /metrics
+---
+

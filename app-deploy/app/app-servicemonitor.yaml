@@ -1,0 +1,16 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app-{{ args.queue_name }}-metrics
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: app-{{ args.queue_name }}
+      queue: {{ args.queue_name }}
+  namespaceSelector:
+    any: true
+  endpoints:
+    - port: web
+      path: /metrics

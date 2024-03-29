@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-{{ args.queue_name }}-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: app-{{ args.queue_name }}
+      queue: {{ args.queue_name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: app-{{ args.queue_name }}
+        queue: {{ args.queue_name }}
+    spec:
+      containers:
+        - name: app-{{ args.queue_name }}
+          image: {{ images.get_image('app') }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: REDIS_HOST
+              value: "redis-{{ args.queue_name }}-service"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: QUEUE_NAME
+              value: "{{ args.queue_name }}"
+            - name: ENV
+              value: "{{ args.environnment }}"

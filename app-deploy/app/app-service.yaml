@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-{{ args.queue_name }}-service
+  namespace: default
+  labels:
+    app: app-{{ args.queue_name }}
+    queue: {{ args.queue_name }}
+spec:
+  selector:
+    app: app-{{ args.queue_name }}
+    queue: {{ args.queue_name }}
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8000

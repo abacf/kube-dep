@@ -1,0 +1,29 @@
+discriminator: "queueapp-{{ target.name }}"
+
+targets:
+  - name: ruby-prod
+    context: prod
+    args:
+      environnment: prod
+      queue_name: ruby
+      base_domain: 192-168-1-205.nip.io
+    images:
+      - image: redis
+        resultImage: redis:7.2.4
+      - image: app
+        resultImage: ghcr.io/abacf/sae503:2.1.2
+      - image: oliver006/redis_exporter
+        resultImage: oliver006/redis_exporter:v1.58.0
+  - name: ruby-staging
+    context: staging
+    args:
+      environnment: staging
+      queue_name: ruby
+      base_domain: 192-168-1-200.nip.io
+    images:
+      - image: redis
+        resultImage: redis:7.2.4
+      - image: app
+        resultImage: ghcr.io/abacf/sae503:2.1.2
+      - image: oliver006/redis_exporter
+        resultImage: oliver006/redis_exporter:latest

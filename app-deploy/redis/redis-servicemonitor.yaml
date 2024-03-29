@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: redis-{{ args.queue_name }}-metrics
+  labels:
+    app: redis-exporter-{{ args.queue_name }}
+spec:
+  selector:
+    matchLabels:
+      app: redis-exporter-{{ args.queue_name }}
+  namespaceSelector:
+    any: true
+  endpoints:
+    - port: metrics

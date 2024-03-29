@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: app-{{ args.queue_name }}-ingress
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ args.queue_name }}.{{ args.base_domain }}`)
+      kind: Rule
+      services:
+        - name: app-{{ args.queue_name }}-service
+          port: 8000

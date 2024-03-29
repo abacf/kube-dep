@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-{{ args.queue_name }}-service
+spec:
+  selector:
+    app: redis-{{ args.queue_name }}
+  ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-{{ args.queue_name }}-exporter-service
+  labels:
+    app: redis-exporter-{{ args.queue_name }}
+spec:
+  selector:
+    app: redis
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 9121
