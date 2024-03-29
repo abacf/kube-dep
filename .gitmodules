@@ -5,3 +5,6 @@
 [submodule "docker/iut-stmalo-sae503"]
 	path = docker/iut-stmalo-sae503
 	url = https://github.com/abacf/iut-stmalo-sae503
+[submodule "app/iut-stmalo-sae503"]
+	path = app/iut-stmalo-sae503
+	url = https://github.com/abacf/iut-stmalo-sae503
