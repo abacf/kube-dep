@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: config-email
+  labels:
+    alertmanagerConfig: main
+spec:
+  route:
+    groupBy: ["job"]
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: "email"
+  receivers:
+    - name: "email"
+      emailConfigs:
+        - to: "stigpro@outlook.fr"
+          from: "alertsae@rt.lan"
+          smarthost: "smtp-mail.outlook.com:587"
+          authUsername: "stigpro@outlook.fr"
+          authPassword:
+            name: alertmanager-smtp
+            key: "alertmanager-smtp"

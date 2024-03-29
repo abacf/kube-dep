@@ -1,0 +1,33 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`dashboard.{{ args.base_domain }}`)
+      middlewares:
+        - name: basic-auth
+      services:
+        - name: api@internal
+          kind: TraefikService
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-metrics
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Path(`/traefik/metrics`)
+      services:
+        - name: prometheus@internal
+          kind: TraefikService
