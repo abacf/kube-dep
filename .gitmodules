@@ -1,7 +1,6 @@
-[submodule "kube-prometheus-custom"]
-	path = base/kube-prometheus-custom
-	url = https://github.com/abacf/kube-prometheus-custom
-	branch = gitops
 [submodule "app/iut-stmalo-sae503"]
 	path = app/iut-stmalo-sae503
 	url = https://github.com/abacf/iut-stmalo-sae503
+[submodule "base-deploy"]
+	path = base-deploy
+	url = https://github.com/abacf/base-deploy.git
