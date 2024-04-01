@@ -1,3 +1,4 @@
 deployments:
-  - path: app
   - path: redis
+  - barrier: true
+  - path: app
