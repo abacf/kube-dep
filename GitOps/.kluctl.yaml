@@ -1,0 +1,7 @@
+discriminator: "kluctl-gitops-{{ target.name }}"
+
+targets:
+  - name: staging
+    context: staging
+  - name: prod
+    context: prod

@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`alertman.192.168.1.52.nip.io`)
+    - match: Host(`alertman.{{ args.base_domain }}.nip.io`)
       kind: Rule
       services:
         - name: alertmanager-main

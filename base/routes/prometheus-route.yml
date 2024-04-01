@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`prometheus.192.168.1.52.nip.io`)
+    - match: Host(`prometheus.{{ args.base_domain }}.nip.io`)
       kind: Rule
       services:
         - name: prometheus-k8s
