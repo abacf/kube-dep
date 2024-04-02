@@ -17,3 +17,66 @@ ruff = "^0.3.4"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+indent-width = 2
+
+[tool.ruff.lint]
+select = [
+  "E4",
+  "E7",
+  "E9",
+  "F",
+  "Q",
+  "RUF",
+  "PERF",
+  "TRY",
+  "FIX",
+  "ARG",
+  "TCH",
+  "TID",
+  "SIM",
+  "RET",
+  "RSE",
+  "Q",
+  "PT",
+  "N",
+  "D",
+  "I",
+  "ANN",
+  "S",
+  "BLE",
+  "B",
+  "A",
+  "C4",
+  "COM",
+  "FA",
+  "ICN",
+  "PIE",
+  "PYI",
+  "PL"
+]
+ignore = [
+  "D407",
+  "S101",
+  "COM812",
+  "D211",
+  "D212",
+  "W191",
+  "E114",
+  "E117",
+  "D206",
+  "D300",
+  "D406",
+  "Q000",
+  "Q001",
+  "Q002",
+  "Q003",
+  "COM819",
+  "ISC001",
+  "ISC002",
+  "TRY003"
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
