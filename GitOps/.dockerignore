@@ -1,0 +1,4 @@
+*
+!gitops-sync.py
+!pyproject.toml
+!poetry.lock
