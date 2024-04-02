@@ -4,3 +4,6 @@
 [submodule "base-deploy"]
 	path = base-deploy
 	url = https://github.com/abacf/base-deploy.git
+[submodule "ansible-k3s"]
+	path = ansible-k3s
+	url = https://gitlab.otter-elver.ts.net/newrt/sae601/ansible.git
