@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: alertmanager-ingressroute
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`alertman.{{ args.base_domain }}.nip.io`)
+      kind: Rule
+      services:
+        - name: alertmanager-main
+          port: 9093

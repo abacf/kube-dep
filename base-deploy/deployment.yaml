@@ -1,0 +1,9 @@
+deployments:
+  - path: kube-prometheus-custom/setup
+    waitReadiness: true
+  - path: traefik/setup
+    waitReadiness: true
+  - barrier: true
+  - path: kube-prometheus-custom/manifests
+  - path: traefik/manifests
+  - path: routes

@@ -1,9 +1,10 @@
 [submodule "app/iut-stmalo-sae503"]
 	path = app/iut-stmalo-sae503
 	url = https://github.com/abacf/iut-stmalo-sae503
-[submodule "base-deploy"]
-	path = base-deploy
-	url = https://github.com/abacf/base-deploy.git
 [submodule "ansible-k3s"]
 	path = ansible-k3s
 	url = https://gitlab.otter-elver.ts.net/newrt/sae601/ansible.git
+[submodule "base-deploy/kube-prometheus-custom"]
+	path = base-deploy/kube-prometheus-custom
+	url = https://github.com/abacf/kube-prometheus-custom
+	branch = gitops

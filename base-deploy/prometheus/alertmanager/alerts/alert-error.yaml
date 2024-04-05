@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    alert: enabled
+  name: prometheus-4xx-rules
+  namespace: default
+spec:
+  groups:
+    - name: ClientError
+      rules:
+        - alert: HighClientErrorRate
+          expr: increase(traefik_service_requests_total{code=~"4.."}[5m]) > 50
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: High client error rate detected
+            description: There has been a significant increase in 4xx responses from the proxy over the last 5 minutes.
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    alert: enabled
+  name: prometheus-5xx-rules
+  namespace: default
+spec:
+  groups:
+    - name: ServerError
+      rules:
+        - alert: HighServerErrorRate
+          expr: increase(traefik_service_requests_total{code=~"5.."}[5m]) > 10
+          for: 5m
+          labels:
+            severity: error
+          annotations:
+            summary: High server error rate detected
+            description: There has been a significant increase 5xx responses from the proxy over the last 5 minutes.
