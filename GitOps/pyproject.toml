@@ -10,6 +10,7 @@ python = "^3.11"
 kubernetes = "^28.0.0"
 ruamel-yaml = "^0.18.6"
 fabric = "^3.2.2"
+loguru = "^0.7.2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.4"
