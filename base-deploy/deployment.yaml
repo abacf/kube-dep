@@ -1,16 +1,10 @@
 deployments:
   - git:
       url: https://github.com/abacf/kube-prometheus-custom.git
-      subDir: setup
       ref:
         branch: gitops
   - path: traefik/setup
     waitReadiness: true
   - barrier: true
-  - git:
-      url: https://github.com/abacf/kube-prometheus-custom.git
-      subDir: manifests
-      ref:
-        branch: gitops
   - path: traefik/manifests
   - path: routes
