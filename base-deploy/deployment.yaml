@@ -4,7 +4,6 @@ deployments:
       subDir: setup
       ref:
         branch: gitops
-    waitReadiness: true
   - path: traefik/setup
     waitReadiness: true
   - barrier: true
