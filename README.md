@@ -29,15 +29,9 @@ Pour déployer un cluster k3s, il suffit de lancer le playbook Ansible `ansible-
 ansible-playbook -i <inventory> ansible-k3s/k3s.yaml
 ```
 
-### 3.4 Déploiement de la base
+### 3.4 Déploiement
 
-
-
-### 3.3. Déploiement de l'application
-
-Pour déployer l'application, il suffit de lancer le script `GitOps/deploy.sh` avec la commande suivante:
-
-```bas
+```bash
 ./GitOps/deploy.sh
 ```
 
