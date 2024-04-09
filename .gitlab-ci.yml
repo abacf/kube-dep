@@ -76,9 +76,11 @@ hadolint:
 
 markdownlint:
   stage: lint
-  image: registry.gitlab.com/pipeline-components/markdownlint:latest
+  image: 
+    name: davidanson/markdownlint-cli2
+    entrypoint: [""]
   script:
-    - mdl --style all --warnings docs/
+    - /usr/local/bin/markdownlint-cli2 "**/*.md"
 
 syft:
   stage: code-sbom
