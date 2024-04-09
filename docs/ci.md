@@ -1,18 +1,48 @@
-#  Gestion de code avec Gitflow :
-*	Nous avons activé avec la protection de la branche main, cela veut donc dire qu’il faut faire une pullrequest pour envoyer les modifications d’une autres branche sur main.
-# Infrastructure as Code :
-*	Pour déployé l’infrastructure sous forme d’infrastructure as code, nous avons utilisé uniquement ansible.
+# Gestion de code avec Gitflow
 
-# Intégration continue (CI) avec GitLab-CI
+* Nous avons activé avec la protection de la branche main
+  * Une Merge Request est obligatoire pour envoyer du code sur la branche main.
+  * Les Merge Requests doivent être approuvées par un autre membre de l'équipe.
+  * Les Merge Requests doivent passer la de CI avant de pouvoir être fusionnées.
+* Cela permets d'isoler l'environement de production de l'environement staging.
 
-Notre pipeline d'intégration continue (CI) est composé de plusieurs étapes distinctes :
-*	Vérification de la syntaxe du script Ansible : Nous utilisons ansible-lint pour vérifier la conformité de notre script Ansible.
-*	Test du code Python : Nous utilisons ruff pour tester notre code Python.
-*	Validation du Dockerfile : Nous utilisons hahadolint pour valider la syntaxe et la structure de notre Dockerfile.
-*	Analyse du markdown : Nous utilisons markdownlint pour vérifier la syntaxe et la cohérence de notre documentation au format Markdown.
-*	Liste des paquets installés : Nous utilisons syft pour répertorier tous les paquets installés et générer un fichier JSON.
-*	Recherche de secrets exposés : Nous utilisons gitleaks pour scanner le code source à la recherche de secrets sensibles qui pourraient être exposés.
-*	Déploiement de la documentation GitLab : Nous utilisons mkdocs pour déployer la documentation générée sur les pages GitLab.
-*	Construction de l'image Docker : Nous utilisons kaniko pour construire notre image Docker.
-*	Analyse de sécurité de l'image Docker : Nous utilisons trivy pour scanner l'image Docker à la recherche de vulnérabilités de sécurité.
-*	Déploiement de l'infrastructure Kubernetes : Une fois que toutes les vérifications sont passées avec succès, nous déployons notre infrastructure Kubernetes pour les environnements de test et de production.
+## Infrastructure as Code
+
+Nous avons utilisé :
+
+* Ansible pour la configuration de nos serveurs et du cluster K3S.
+* Kluctl pour la gestion de nos ressources Kubernetes.
+
+## Intégration continue (CI) avec GitLab-CI
+
+Notre pipeline d'intégration continue (CI) est composé de plusieurs étapes :
+:
+
+* [`ansible-lint`](https://ansible-lint.readthedocs.io/)
+  * pour vérifier la conformité de notre script Ansible.
+* [`ruff`](https://docs.astral.sh/ruff/) pour :
+  * linter statiquement le code Python.
+  * ainsi que vérifier le formattage du code Python.
+* `hahadolint` pour :
+  * valider la syntaxe et la structure de nos Dockerfiles.
+* [`markdownlint`](https://github.com/DavidAnson/markdownlint-cli2) pour :
+  * vérifier la syntaxe
+  * la cohérence
+  * et le formattage de notre documentation au format Markdown.
+* [`syft`](https://github.com/anchore/syft) pour
+  * répertorier tous les paquets installés
+  * générer une software bill of materials (SBOM).
+* [`gitleaks`](https://github.com/gitleaks/gitleaks) pour :
+  * scanner le code source à la recherche de secrets sensibles.
+* [`mkdocs`](https://www.mkdocs.org/) pour :
+  * Contruire la documentation au format HTML.
+  * déployer la documentation générée sur les pages GitLab.
+* [`kaniko`](https://github.com/GoogleContainerTools/kaniko) pour :
+  * construire
+  * et pousser les images Docker.
+* [`trivy`](https://trivy.dev/) pour :
+  * scanner l'image Docker à la recherche de vulnérabilités de sécurité.
+  * générer une seconde SBOM pour l'image Docker.
+* [`kluctl`](https://kluctl.io/) pour :
+  * déployer les ressources Kubernetes au moyen du contrôleur de ressources
+    GitOps.
