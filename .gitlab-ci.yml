@@ -137,12 +137,12 @@ pages:
   stage: doc
   image: python:3.12-alpine
   before_script:
-    - pip install --no-cache mkdocs==1.5.3 mkdocs-material==9.5.14 'mkdocstrings[python]'==0.24.1 pymdown-extensions==10.7.1
+    - pip install --no-cache mkdocs==1.5.3 mkdocs-material==9.5.14 # 'mkdocstrings[python]'==0.24.1 pymdown-extensions==10.7.1
   script:
-    - mkdocs build --strict --verbose --site-dir docs
+    - mkdocs build --strict --verbose
   artifacts:
     paths:
-      - docs
+      - public
 
 docker-build-app:
   stage: build-image

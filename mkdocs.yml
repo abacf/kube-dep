@@ -2,10 +2,13 @@ site_name: SAE601
 site_url: https://nformichella.pages.gitlab.rt.lan/kube-dep
 repo_url: https://gitlab.rt.lan/nformichella/kube-dep
 repo_name: SAE601
+site_dir: public
+
 nav:
   - Introduction: index.md
-  - GitOps: git.md
+  - Ansible: ansible.md
   - Kubernetes: kube.md
+  - GitOps: git.md
 theme:
   name: material
   icon:
