@@ -25,9 +25,9 @@ stages:
 ansible-lint:
   stage: lint
   image:
-    name: python:3.12-alpine
+    name: bitnami/minideb:bookworm
   before_script:
-    - pip install ansible-lint==24.2.2
+    - install_packages ansible-lint
     - cd ansible-k3s
   script:
     - ansible-lint -f codeclimate -v > ansible-lint-report.json
