@@ -1,4 +1,5 @@
 deployments:
   - path: redis
+  # Make sure Redis is deployed before the app
   - barrier: true
   - path: app
