@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import pathlib
+import subprocess
 import tempfile
 from os import environ
+from shlex import quote
 
 import kubernetes
 from fabric import Connection
@@ -160,13 +162,15 @@ def delete_kluctl_controller(target: str) -> None:
   )
 
 
-def create_kluctl_controller(target: str) -> None:
+def create_kluctl_controller(target: str, kubeconfig_path: pathlib.Path) -> None:
   """Create a kluctl controller for the target.
 
   Args:
       target (str): The target for which the controller is to be created
+      kubeconfig_path (pathlib.Path): Path to the kubeconfig file
   """
   # Move to Jinja2 file
+  # Create the kluctl controller for the target
   kluctl_controller = {
     "apiVersion": f"{KLUCTL_CRD['group']}/{KLUCTL_CRD['version']}",
     "kind": "KluctlDeployment",
@@ -199,7 +203,14 @@ def create_kluctl_controller(target: str) -> None:
     KLUCTL_CRD["plural"],
     kluctl_controller,
   )
+  force_deploy(target, kubeconfig_path)
 
+def force_deploy(target_name: str, kubeconfig: pathlib.Path) -> None:
+  """Force deploy the kluctl controllers."""
+  # Copy the environment variables
+  env = environ.copy()
+  env["KUBECONFIG"] = str(kubeconfig)
+  subprocess.check_call(["/usr/local/bin/kluctl", "gitops", "deploy", "-y", "--name", quote(target_name)], env=env)  # noqa: S603 # Using shlex.quote to escape the target_name
 
 if __name__ == "__main__":
   compare_kluctl_controllers()
