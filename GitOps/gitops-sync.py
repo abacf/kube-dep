@@ -35,7 +35,8 @@ CONTROLLER_NAMEPSACE = environ.get("CONTROLLER_NAMEPSACE", "default")
 APP_SUFFIX = environ.get("APP_PATH", "APP_PATH") != ""
 if not pathlib.Path(f"{environ.get('CI_PROJECT_DIR', '.')}/{APP_SUFFIX}").is_dir():
   raise FileNotFoundError(
-      f"Directory {environ.get('CI_PROJECT_DIR', '.')}/{APP_SUFFIX} not found")
+    f"Directory {environ.get('CI_PROJECT_DIR', '.')}/{APP_SUFFIX} not found"
+  )
 APP_DISCRIMINATOR = environ.get("APP_DISCRIMINATOR", "app-")
 
 
@@ -205,12 +206,17 @@ def create_kluctl_controller(target: str, kubeconfig_path: pathlib.Path) -> None
   )
   force_deploy(target, kubeconfig_path)
 
+
 def force_deploy(target_name: str, kubeconfig: pathlib.Path) -> None:
   """Force deploy the kluctl controllers."""
   # Copy the environment variables
   env = environ.copy()
   env["KUBECONFIG"] = str(kubeconfig)
-  subprocess.check_call(["/usr/local/bin/kluctl", "gitops", "deploy", "-y", "--name", quote(target_name)], env=env)  # noqa: S603 # Using shlex.quote to escape the target_name
+  subprocess.check_call(
+    ["/usr/local/bin/kluctl", "gitops", "deploy", "-y", "--name", quote(target_name)],
+    env=env,
+  )  # noqa: S603 # Using shlex.quote to escape the target_name
+
 
 if __name__ == "__main__":
   compare_kluctl_controllers()
