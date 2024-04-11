@@ -3,4 +3,4 @@
 	url = https://github.com/abacf/iut-stmalo-sae503
 [submodule "ansible-k3s"]
 	path = ansible-k3s
-	url = https://gitlab.otter-elver.ts.net/newrt/sae601/ansible.git
+	url = https://github.com/abacf/k3s-ansible.git
