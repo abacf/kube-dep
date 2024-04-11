@@ -1,9 +1,11 @@
 deployments:
   - git:
+      # Track a remote deployment repository
       url: https://github.com/abacf/kube-prometheus-custom.git
       ref:
         branch: gitops
   - path: traefik/setup
+    # Wait for Traefik CRDs to be ready before deploying the rest
     waitReadiness: true
   - barrier: true
   - path: traefik/manifests

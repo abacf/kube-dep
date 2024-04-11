@@ -1,5 +1,0 @@
-
-[submodule "kube-prometheus-custom"]
-	path = kube-prometheus-custom
-	url = https://github.com/abacf/kube-prometheus-custom.git
-	branch = gitops

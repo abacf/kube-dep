@@ -1,0 +1,14 @@
+apiVersion: gitops.kluctl.io/v1beta1
+kind: KluctlDeployment
+metadata:
+  name: staging
+spec:
+  interval: 5m
+  source:
+    git:
+      url: https://github.com/abacf/kube-dep.git
+      path: "./base-deploy/"
+  target: staging
+  context: default
+  prune: true
+  delete: true

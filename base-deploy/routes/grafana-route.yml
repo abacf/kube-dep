@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`grafana.{{ args.base_domain }}.nip.io`)
+    - match: Host(`grafana.{{ args.base_domain }}`)
       kind: Rule
       services:
         - name: grafana
