@@ -215,7 +215,7 @@ def force_deploy(target_name: str, kubeconfig: pathlib.Path) -> None:
   subprocess.check_call(
     ["/usr/local/bin/kluctl", "gitops", "deploy", "-y", "--name", quote(target_name)],  # noqa: S603 # Using shlex.quote to escape the target_name
     env=env,
-  )  
+  )
 
 
 if __name__ == "__main__":
