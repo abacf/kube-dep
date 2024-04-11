@@ -180,8 +180,9 @@ kluctl-base-production-deploy:
   image: ghcr.io/abacf/gitops-sync:latest
   before_script:
     - TEMPFILE=$(mktemp)
-    - cat "${CLUSTER_KEY}" | base64 -d > $TEMPFILE
+    - cat "${GLOBAL_CLUSTER_KEY}" | base64 -d > $TEMPFILE
     - chmod 600 $TEMPFILE
+    - export CLUSTER_KEY=$TEMPFILE
   variables:
     APP_PATH: "base-deploy"
   # Application de l'environnement de production
@@ -197,8 +198,9 @@ kluctl-base-staging-deploy:
   image: ghcr.io/abacf/gitops-sync:latest
   before_script:
     - TEMPFILE=$(mktemp)
-    - cat "${CLUSTER_KEY}" | base64 -d > $TEMPFILE
+    - cat "${GLOBAL_CLUSTER_KEY}" | base64 -d > $TEMPFILE
     - chmod 600 $TEMPFILE
+    - export CLUSTER_KEY=$TEMPFILE
   variables:
     APP_PATH: "base-deploy"
   # Application de l'environnement de pré-production
@@ -214,8 +216,9 @@ kluctl-production-deploy:
   image: ghcr.io/abacf/gitops-sync:latest
   before_script:
     - TEMPFILE=$(mktemp)
-    - cat "${CLUSTER_KEY}" | base64 -d > $TEMPFILE
+    - cat "${GLOBAL_CLUSTER_KEY}" | base64 -d > $TEMPFILE
     - chmod 600 $TEMPFILE
+    - export CLUSTER_KEY=$TEMPFILE
   variables:
     APP_PATH: "app-deploy"
   environment:
@@ -232,6 +235,11 @@ kluctl-production-deploy:
 kluctl-staging-deploy:
   stage: gitops
   image: ghcr.io/abacf/gitops-sync:latest
+  before_script:
+    - TEMPFILE=$(mktemp)
+    - cat "${GLOBAL_CLUSTER_KEY}" | base64 -d > $TEMPFILE
+    - chmod 600 $TEMPFILE
+    - export CLUSTER_KEY=$TEMPFILE
   variables:
     APP_PATH: "app-deploy"
   environment:
