@@ -97,13 +97,17 @@ markdownlint:
 # SBOM du code
 syft:
   stage: code-sbom
-  image: ghcr.io/anchore/syft:debug
+  image:
+    name: ghcr.io/anchore/syft:latest
+    entrypoint: [""] # Override the default entrypoint to allow for custom commands
   script:
-    - syft -o syft-json=/syft/code-sbom.json -o cyclonedx-json=syft-json=/syft/cyclonedx-code-sbom.json app/iut-stmalo-sae503
+    - syft -o cyclonedx-json=syft-json=/syft/cyclonedx-code-sbom.json app/iut-stmalo-sae503
   artifacts:
     name: "$CI_JOB_NAME artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
+    reports:
+      cyclonedx: /syft/cyclonedx-code-sbom.json
     paths:
-      - /syft/*sbom.json
+      - /syft/sbom.json
 
 # Vérification de la présence de secrets dans le code
 gitleaks:
@@ -170,14 +174,13 @@ trivy:
     TRIVY_USERNAME: ${CI_REGISTRY_USER}
     TRIVY_PASSWORD: ${CI_REGISTRY_PASSWORD}
   script:
-    - trivy image --format cyclonedx --output result_medium.json --exit-code 1 --severity MEDIUM,HIGH "${IMAGE_TAG}"
-    - trivy image --format cyclonedx --output result_crit.json --exit-code 2 --severity CRITICAL "${IMAGE_TAG}"
+    - trivy image --format cyclonedx --output result.json --exit-code 1 --severity MEDIUM,HIGH,CRITICAL "${IMAGE_TAG}"
   artifacts:
     name: "$CI_JOB_NAME artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     reports:
-      cyclonedx: result_*.json
+      cyclonedx: result.json
     paths:
-      - "result*.json"
+      - "result.json"
 
 kluctl-base-production-deploy:
   stage: deploy
