@@ -211,11 +211,11 @@ def force_deploy(target_name: str, kubeconfig: pathlib.Path) -> None:
   """Force deploy the kluctl controllers."""
   # Copy the environment variables
   env = environ.copy()
-  env["KUBECONFIG"] = str(kubeconfig)
+  env["KUBECONFIG"] = str(kubeconfig.resolve().absolute())
   subprocess.check_call(
-    ["/usr/local/bin/kluctl", "gitops", "deploy", "-y", "--name", quote(target_name)],
+    ["/usr/local/bin/kluctl", "gitops", "deploy", "-y", "--name", quote(target_name)],  # noqa: S603 # Using shlex.quote to escape the target_name
     env=env,
-  )  # noqa: S603 # Using shlex.quote to escape the target_name
+  )  
 
 
 if __name__ == "__main__":
