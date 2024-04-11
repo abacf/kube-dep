@@ -117,7 +117,9 @@ syft_sbom:
 # Vérification de la présence de secrets dans le code
 gitleaks:
   stage: secure-code
-  image: zricethezav/gitleaks:latest
+  image: 
+    name: zricethezav/gitleaks:latest
+    entrypoint: [""]
   script:
     - gitleaks detect --path=. --report-format=junit --report-path=gitleaks-report.json
   artifacts:
